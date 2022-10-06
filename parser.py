@@ -1,7 +1,7 @@
 import csv
 from typing import Iterable
-
-first_message = '''
+from collections import defaultdict 
+FIRST_MESSAGE = '''
 Введите 1, если хотите показать иерархию
 Введите 2, если хотите показать сводный отчёт
 Введите 3, если хотите сохранить сводный отчёт
@@ -17,11 +17,9 @@ def get_hierarchy(reader: Iterable) -> dict:
     Returns:
         dict: dictionary with hierarchy
     """
-    hierarchy = {}
+    hierarchy = defaultdict(set)
     for row in reader:
-        dep, team = row['Департамент'], row['Отдел']
-        if dep not in hierarchy:
-            hierarchy[dep] = set()
+        dep, team = row['Департамент'], row['Отдел']       
         hierarchy[dep].add(team)
     return hierarchy
 
@@ -62,8 +60,9 @@ def get_deps_data(reader: Iterable) -> dict:
         hierarchy[dep]['total'] = hierarchy[dep].get('total', 0) + salary
     # считаем среднюю зп по департаменту
     for dep in hierarchy.keys():
-        hierarchy[dep]['avg_salary'] = \
-                            hierarchy[dep]['total'] / hierarchy[dep]['number']
+        hierarchy[dep]['avg_salary'] = (
+            hierarchy[dep]['total'] / hierarchy[dep]['number']
+            )
     return hierarchy
 
 
@@ -109,7 +108,7 @@ def command_handler(reader: Iterable):
     Raises:
         ValueError: on wrong input
     """
-    print(first_message)
+    print(FIRST_MESSAGE)
     command_num = int(input())
     if command_num == 1:
         h = get_hierarchy(reader)
