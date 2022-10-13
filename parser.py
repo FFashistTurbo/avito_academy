@@ -1,6 +1,6 @@
 import csv
 from typing import Iterable
-from collections import defaultdict 
+from collections import defaultdict
 FIRST_MESSAGE = '''
 Введите 1, если хотите показать иерархию
 Введите 2, если хотите показать сводный отчёт
@@ -19,7 +19,7 @@ def get_hierarchy(reader: Iterable) -> dict:
     """
     hierarchy = defaultdict(set)
     for row in reader:
-        dep, team = row['Департамент'], row['Отдел']       
+        dep, team = row['Департамент'], row['Отдел']
         hierarchy[dep].add(team)
     return hierarchy
 
