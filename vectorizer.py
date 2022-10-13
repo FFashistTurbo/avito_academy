@@ -3,11 +3,21 @@ from collections import Counter
 
 
 class CountVectorizer():
+    """class for vectorize list of strings
+    """
     def __init__(self):
         self._vocabulary = []
         self._feature_names = []
 
-    def fit_transform(self, corpus: List[str]) -> List[List[str]]:
+    def fit_transform(self, corpus: List[str]) -> List[List[int]]:
+        """_summary_
+
+        Args:
+            corpus (List[str]): input list of strings to vectorize
+
+        Returns:
+            List[List[int]]: list of vectors of int
+        """
         self._vocabulary = corpus
         features = [text.lower().split() for text in self._vocabulary]
         feature_counters = (
@@ -26,6 +36,11 @@ class CountVectorizer():
         return X
 
     def get_feature_names(self) -> List[str]:
+        """getter of feature names
+
+        Returns:
+            List[str]: list to output
+        """
         return self._feature_names
 
 
