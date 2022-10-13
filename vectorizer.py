@@ -10,7 +10,7 @@ class CountVectorizer():
         self._feature_names = []
 
     def fit_transform(self, corpus: List[str]) -> List[List[int]]:
-        """_summary_
+        """transform string to vector method
 
         Args:
             corpus (List[str]): input list of strings to vectorize
