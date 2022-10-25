@@ -6,6 +6,7 @@ FIRST_MESSAGE = '''
 Введите 2, если хотите показать сводный отчёт
 Введите 3, если хотите сохранить сводный отчёт
 '''
+SOURCE_FILE_NAME = 'Corp_Summary.csv'
 
 
 def get_hierarchy(reader: Iterable) -> dict:
@@ -31,7 +32,7 @@ def print_hierarchy(hierarchy: dict):
         hierarchy (dict): dictionary with hierarchy
     """
     print("*" * 40)
-    for i, dep in enumerate(hierarchy.keys()):
+    for i, dep in enumerate(hierarchy):
         print(f'  {i}. {dep}')
         for j, team in enumerate(hierarchy[dep]):
             print(f'\t  {j}. {team}')
@@ -59,7 +60,7 @@ def get_deps_data(reader: Iterable) -> dict:
         hierarchy[dep]['number'] = hierarchy[dep].get('number', 0) + 1
         hierarchy[dep]['total'] = hierarchy[dep].get('total', 0) + salary
     # считаем среднюю зп по департаменту
-    for dep in hierarchy.keys():
+    for dep in hierarchy:
         hierarchy[dep]['avg_salary'] = (
             hierarchy[dep]['total'] / hierarchy[dep]['number']
             )
@@ -74,7 +75,7 @@ def print_deps_info(deps: dict):
     """
     print("*" * 40)
     print("Номер\t\tДепартамент\t Сотрудников\t\t\tВилка\t\tСредняя Зарплата")
-    for i, dep in enumerate(deps.keys()):
+    for i, dep in enumerate(deps):
         print(f'  {i:>3}. {dep:>20}\t\t {deps[dep]["number"]:>3} \
             {deps[dep]["min"]}-{deps[dep]["max"]}\t \
             {deps[dep]["avg_salary"]:.0f}')
@@ -129,7 +130,7 @@ def command_handler(reader: Iterable):
 def parse_file():
     """init function
     """
-    with open('Corp_Summary.csv', 'r', encoding='utf-8') as csvfile:
+    with open(SOURCE_FILE_NAME, 'r', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         command_handler(reader)
 
