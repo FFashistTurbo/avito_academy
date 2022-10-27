@@ -1,15 +1,5 @@
 import json
 import keyword
-from functools import wraps
-
-LESSON_STR = """{
-            "title": "python",
-            "price": 0,
-            "location": {
-                "address": "город Москва, Лесная, 7",
-                "metro_stations": ["Белорусская"]
-            }
-            }"""
 
 
 class DictConverter():
@@ -34,7 +24,7 @@ class DictConverter():
 
 
 class ColorizeMixin:
-    """  
+    """
     Класс разукрашивающий текст в зеленый
     """
     repr_color_code = 32
@@ -43,8 +33,8 @@ class ColorizeMixin:
         return f'\033[1;{self.repr_color_code};40m{self.__repr__()}\033[0m'
 
 
-class Advert(DictConverter, ColorizeMixin):
-    """  
+class Advert(ColorizeMixin, DictConverter):
+    """
     Класс, преобразующий объявления из словаря в объект,
     позволяющий получать доступ к полям через '.'.
     Поле title  обязательно для всех объявлений
@@ -72,6 +62,14 @@ class Advert(DictConverter, ColorizeMixin):
 
 
 if __name__ == '__main__':
+    LESSON_STR = """{
+            "title": "python",
+            "price": 0,
+            "location": {
+                "address": "город Москва, Лесная, 7",
+                "metro_stations": ["Белорусская"]
+            }
+            }"""
     lesson = json.loads(LESSON_STR)
     lesson_ad = Advert(lesson)
-    print(lesson_ad) 
+    print(lesson_ad)
