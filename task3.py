@@ -43,7 +43,8 @@ class Advert(ColorizeMixin, DictConverter):
     def __init__(self, json_dict: dict):
         if 'title' not in json_dict:
             raise ValueError('No title value in json')
-
+        if 'price' not in json_dict:
+            self._price = 0
         super().__init__(json_dict)
 
     def __repr__(self):
@@ -64,7 +65,7 @@ class Advert(ColorizeMixin, DictConverter):
 if __name__ == '__main__':
     LESSON_STR = """{
             "title": "python",
-            "price": 0,
+            "price": 10,
             "location": {
                 "address": "город Москва, Лесная, 7",
                 "metro_stations": ["Белорусская"]
