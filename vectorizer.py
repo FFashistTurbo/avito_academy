@@ -21,7 +21,7 @@ class CountVectorizer():
         self._vocabulary = corpus
         features = [text.lower().split() for text in self._vocabulary]
         feature_counters = (
-            [Counter(text.lower().split()) for text in self._vocabulary]
+            [Counter(f) for f in features]
         )
         unique_features = []
         for lst in features:
@@ -29,11 +29,11 @@ class CountVectorizer():
                 if i not in unique_features:
                     unique_features.append(i)
 
-        self._feature_names = (list(unique_features))
-        X = []
+        self._feature_names = unique_features
+        count_matrix = []
         for counts in feature_counters:
-            X.append([counts[key] for key in self._feature_names])
-        return X
+            count_matrix.append([counts[key] for key in self._feature_names])
+        return count_matrix
 
     def get_feature_names(self) -> List[str]:
         """getter of feature names
