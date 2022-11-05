@@ -9,14 +9,14 @@ class DictConverter():
     к нему добавляется "_"
     """
     def __init__(self, json_dict):
-        self.key=str(json_dict)
+        self.key = str(json_dict)
         for key, value in json_dict.items():
             if keyword.iskeyword(key):
                 key = f'{key}_'
             self.__setattr__(key, self._key_attach(value))
 
     def __repr__(self):
-         return self.key
+        return self.key
 
     def _key_attach(self, value: any):
         if isinstance(value, dict):
@@ -78,6 +78,6 @@ if __name__ == '__main__':
             }"""
     lesson = json.loads(LESSON_STR)
     lesson_ad = Advert(lesson)
-    print('hello2') 
+    print('hello2')
     print(lesson_ad.location)
     print('hello')
